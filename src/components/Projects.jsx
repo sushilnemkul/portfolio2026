@@ -25,17 +25,17 @@ export default function Projects() {
       detailedDescription: "A comprehensive deep learning project designed to identify various bird species accurately. It involves collecting image datasets, preprocessing, data augmentation to handle overfitting, and training a Convolutional Neural Network (CNN) using TensorFlow and Keras. The system is designed to provide high accuracy predictions and can be integrated into a larger web application.",
       tech: ["Python", "TensorFlow", "CNN", "Keras"],
       links: { github: "https://github.com/sushilnemkul/bird_species_identification", demo: "#" },
-      image: "Bird Species Image",
-      gallery: ["placeholder-1", "placeholder-2"]
+      image: "/b1.jpg",
+      gallery: ["/b1.jpg", "/b2.jpg", "/b3.jpg", "/b4.jpg", "/b5.jpg", "/b6.jpg.png", "/b7.jpg", "/b8.jpg", "/b9.jpg", "/b10.jpg", "/b11.jpg"]
     },
     {
       title: "Fishtopia",
       description: "An E-Commerce platform for aquatic products. Features Khalti payment integration and follows Agile methodology.",
       detailedDescription: "Fishtopia is an e-commerce platform specifically tailored for aquatic enthusiasts. Built using React.js for the frontend and Flask for the backend, it provides a seamless shopping experience. It includes user authentication, a shopping cart, and integrates with the Khalti API for secure payment processing. The project was developed following Agile methodologies to ensure continuous iteration and improvement.",
       tech: ["React.js", "Flask", "Khalti API", "Agile"],
-      links: { github: "https://github.com/sushilnemkul/project5thsem", demo: "#" },
-      image: "Fishtopia Image",
-      gallery: ["placeholder-1", "placeholder-2"]
+      links: { github: "https://github.com/sushilnemkul/project5thsem/tree/master", demo: "#" },
+      image: "/f1.png",
+      gallery: ["/f1.png", "/f2.png", "/f3.png", "/f4.png", "/f5.png", "/f6.png"]
     },
     {
       title: "Adopt a Buddy",
@@ -43,8 +43,8 @@ export default function Projects() {
       detailedDescription: "Adopt a Buddy is a platform aimed at reducing the number of stray animals by connecting shelters and current owners with potential adopters. Developed using traditional web technologies like PHP, MySQL, and HTML/CSS following the Waterfall methodology. It features a robust database schema to track pet medical histories, adoption statuses, and user profiles.",
       tech: ["PHP", "MySQL", "HTML/CSS", "JavaScript"],
       links: { github: "https://github.com/sushilnemkul/pet-adoption", demo: "#" },
-      image: "Adopt Buddy Image",
-      gallery: ["placeholder-1", "placeholder-2"]
+      image: "/ad3.jpg",
+      gallery: ["/ad3.jpg", "/ad1.jpg", "/ad2.jpg", "/ad4.jpg", "/ad5.jpg", "/ad6.jpg", "/ad7.jpg", "/ad8.jpg", "/ad9.jpg", "/ad10.jpg", "/ad11.jpg.png", "/ad12.jpg.png"]
     },
     {
       title: "Weather App",
@@ -57,12 +57,12 @@ export default function Projects() {
     },
     {
       title: "DAV Codefest 2026",
-      description: "Organized a 72-hour hackathon with 150+ participants. Managed potential sponsors and faculty coordination.",
+      description: "Organized a 72-hour National Level Hackathon with 150+ participants. Managed potential sponsors and faculty coordination.",
       detailedDescription: "Led the organization of DAV Codefest 2026. This was a massive 72-hour event featuring over 150+ participants from all over Nepal. My role involved cross-functional leadership, securing and managing sponsors, coordinating with faculty, and overseeing event logistics. The hackathon produced incredible and interesting projects from various teams, and it was a great experience managing the entire workflow, from sponsors to presenting the winners.",
       tech: ["Event Management", "Leadership", "Teamwork"],
       links: { github: "", demo: "#" },
-      image: "Codefest Image",
-      gallery: ["placeholder-1", "placeholder-2"]
+      image: "/cod1.jpg",
+      gallery: ["/cod1.jpg", "/cod2.jpg", "/cod3.jpg", "/cod4.jpg", "/cod5.jpg"]
     }
   ];
 
@@ -82,7 +82,7 @@ export default function Projects() {
               transition={{ delay: index * 0.1, duration: 0.3 }}
               className="group bg-gray-50 dark:bg-slate-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col"
             >
-              <div 
+              <div
                 onClick={() => setSelectedProject(project)}
                 className="h-48 bg-gray-200 dark:bg-slate-700 flex items-center justify-center text-gray-500 dark:text-gray-400 overflow-hidden relative cursor-pointer"
               >
@@ -90,13 +90,8 @@ export default function Projects() {
                   <>
                     <img
                       src={project.image}
-                      alt=""
-                      className="absolute inset-0 w-full h-full object-cover blur-md opacity-30 scale-105 select-none pointer-events-none"
-                    />
-                    <img
-                      src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-contain relative z-10 transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
                     />
                   </>
                 ) : (
@@ -192,13 +187,8 @@ export default function Projects() {
                           <>
                             <img
                               src={img}
-                              alt=""
-                              className="absolute inset-0 w-full h-full object-cover blur-md opacity-30 scale-105 select-none pointer-events-none"
-                            />
-                            <img
-                              src={img}
                               alt={`${selectedProject.title} screenshot ${idx + 1}`}
-                              className="w-full h-full object-contain relative z-10 transition-transform duration-300 group-hover:scale-105"
+                              className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
                             />
                           </>
                         )}

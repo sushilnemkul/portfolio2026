@@ -3,10 +3,10 @@ import { GlowingEffectDemo } from './ui/demo';
 
 export default function Skills() {
   const technicalSkills = [
-    "Python", "CNN & TensorFlow", "SQL / MySQL", "PHP", "JavaScript", "React.js", "HTML & CSS", "Git & GitHub", "Android Studio", "Computer Networking (Cisco Basics)"
+    "Python", "CNN & TensorFlow", "SQL / MySQL", "PHP", "JavaScript", "React.js", "HTML & CSS", "Git & GitHub", "Android Studio", "Computer Networking (Cisco Basics)", "Fortigate"
   ];
   const softSkills = [
-    "Data Analysis & Management", "UI/UX Fundamentals", "Problem Solving", "Time Management", "Team Leadership", "Adaptive"
+    "Data Analysis & Management", "UI/UX Fundamentals", "Problem Solving", "Time Management", "Team Leadership", "Adaptive", "Cyber Security Basics"
   ];
 
   const SkillCard = ({ skill, index }) => (
@@ -38,14 +38,14 @@ export default function Skills() {
               ))}
             </div>
           </div>
-          
+
           <div>
-             <h3 className="text-2xl font-semibold mb-8 text-center text-green-600 dark:text-green-400">Conceptual & Soft Skills</h3>
-             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <h3 className="text-2xl font-semibold mb-8 text-center text-green-600 dark:text-green-400">Conceptual & Soft Skills</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {softSkills.map((skill, index) => (
                 <SkillCard key={skill} skill={skill} index={index + technicalSkills.length} />
               ))}
-             </div>
+            </div>
           </div>
         </div>
 

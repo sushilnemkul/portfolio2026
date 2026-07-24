@@ -1,34 +1,50 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send, Phone, MapPin } from 'lucide-react';
-import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const form = useRef();
   const [status, setStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setStatus('Sending...');
 
-    // REPLACE THESE WITH YOUR ACTUAL EMAILJS SERVICE ID, TEMPLATE ID, AND PUBLIC KEY
-    const SERVICE_ID = 'YOUR_SERVICE_ID';
-    const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-    const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+    const formData = new FormData(form.current);
+    const data = {
+      name: formData.get('user_name'),
+      email: formData.get('user_email'),
+      message: formData.get('message'),
+      _subject: `Portfolio Contact: Message from ${formData.get('user_name')}`
+    };
 
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
-      .then((result) => {
-          setStatus('Message sent successfully!');
-          e.target.reset();
-          setIsSubmitting(false);
-          setTimeout(() => setStatus(''), 5000);
-      }, (error) => {
-          console.log(error.text);
-          setStatus('Failed to send message. Please try again.');
-          setIsSubmitting(false);
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/namecoolsusil@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
       });
+
+      const result = await response.json();
+
+      if (response.ok || result.success === 'true') {
+        setStatus('Message sent successfully! I will get back to you soon.');
+        form.current.reset();
+      } else {
+        setStatus('Failed to send message. Please try again or email namecoolsusil@gmail.com directly.');
+      }
+    } catch (error) {
+      console.error('Error sending contact message:', error);
+      setStatus('Failed to send message. Please try again or email namecoolsusil@gmail.com directly.');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setStatus(''), 6000);
+    }
   };
 
   return (
