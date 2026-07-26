@@ -20,10 +20,10 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
             <a href="#" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-   <img src="public/logoo-removebg-preview.png" alt="logo"  className='w-10 h-10'/>
+              <img src="logo.png" alt="logo" className='w-10 h-10' />
             </a>
           </div>
-          
+
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {navItems.map((item) => (
@@ -68,9 +68,9 @@ export default function Navbar() {
                 {item.name}
               </a>
             ))}
-             <a href="/public/Sushil_CV_2026.pdf" download className="block w-full text-left text-blue-600 dark:text-blue-400 px-3 py-2 font-medium">
-                Download Resume
-              </a>
+            <a href="/public/Sushil_CV_2026.pdf" download className="block w-full text-left text-blue-600 dark:text-blue-400 px-3 py-2 font-medium">
+              Download Resume
+            </a>
           </div>
         </div>
       )}

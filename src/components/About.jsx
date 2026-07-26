@@ -21,7 +21,7 @@ export default function About() {
             >
               <div className="w-full h-64 md:h-80 bg-gray-200 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-gray-500 dark:text-gray-400 overflow-hidden shadow-xl cursor-pointer">
                 <motion.img
-                  src="public/s2.jpeg"
+                  src="s2.jpg"
                   alt="Sushil Nemkul"
                   className="w-full h-full object-cover"
                   whileHover={{ scale: 1.1 }}
