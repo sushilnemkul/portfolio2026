@@ -5,10 +5,13 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import Photography from './components/Photography';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import BackToTop from './components/BackToTop';
 import Preloader from './components/ui/preloader';
+import InteractiveBackground from './components/ui/InteractiveBackground';
 import './App.css';
 
 function App() {
@@ -25,17 +28,20 @@ function App() {
   return (
     <Router>
       {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
-      <div className="bg-white dark:bg-slate-900 min-h-screen transition-colors duration-300">
+      <div className="relative bg-white dark:bg-slate-900 min-h-screen transition-colors duration-300">
+        <InteractiveBackground />
         <Navbar />
-        <main>
+        <main className="relative z-10">
           <Hero />
           <About />
           <Skills />
           <Projects />
+          <Photography />
           <Experience />
           <Contact />
         </main>
         <Footer />
+        <BackToTop />
       </div>
     </Router>
   );

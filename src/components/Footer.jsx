@@ -2,7 +2,7 @@ import { Github, Linkedin, Mail, Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-12 border-t border-gray-800">
+    <footer className="bg-gray-900/80 backdrop-blur-md text-white py-12 border-t border-gray-800/80 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="flex justify-center space-x-8 mb-8">
           <a href="https://github.com/sushilnemkul" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors"><Github size={24} /></a>

@@ -1,8 +1,32 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Calendar } from 'lucide-react';
 import { TimelineDemo } from './ui/timeline-demo';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Experience() {
+  const lineRef = useRef(null);
+
+  useGSAP(() => {
+    gsap.fromTo(lineRef.current,
+      { scaleX: 0, opacity: 0 },
+      {
+        scaleX: 1,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: lineRef.current,
+          start: 'top 85%'
+        }
+      }
+    );
+  }, []);
+
   const experiences = [
     {
       id: 1,
@@ -35,9 +59,10 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="py-24 bg-gray-50 dark:bg-slate-800/50 transition-colors duration-300">
+    <section id="experience" className="py-24 bg-transparent transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900 dark:text-white">Experience</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-2 text-gray-900 dark:text-white">Experience</h2>
+        <div ref={lineRef} className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 mx-auto mb-16 rounded-full origin-center" />
         
         <div className="space-y-12">
           {experiences.map((exp, index) => (

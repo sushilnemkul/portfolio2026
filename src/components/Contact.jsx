@@ -1,11 +1,32 @@
 import { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send, Phone, MapPin } from 'lucide-react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Contact() {
+  const lineRef = useRef(null);
   const form = useRef();
   const [status, setStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useGSAP(() => {
+    gsap.fromTo(lineRef.current,
+      { scaleX: 0, opacity: 0 },
+      {
+        scaleX: 1,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: lineRef.current,
+          start: 'top 85%'
+        }
+      }
+    );
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,9 +69,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <section id="contact" className="py-24 bg-transparent transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900 dark:text-white">Get In Touch</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-2 text-gray-900 dark:text-white">Get In Touch</h2>
+        <div ref={lineRef} className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 mx-auto mb-16 rounded-full origin-center" />
         
         <div className="grid md:grid-cols-2 gap-16">
           <div className="space-y-8">
