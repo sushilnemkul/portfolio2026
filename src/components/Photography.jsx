@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, X, ZoomIn, Sparkles } from 'lucide-react';
+import { GlowingEffect } from './ui/glowing-effect';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -101,39 +102,51 @@ export default function Photography() {
         {/* Bento Box Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 auto-rows-[auto]">
           {photos.map((photo, idx) => (
-            <motion.div
+            <div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ delay: idx * 0.08, duration: 0.5 }}
-              onClick={() => setActivePhoto(photo.image)}
-              className={`group relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl bg-slate-900 cursor-pointer border border-gray-200/80 dark:border-white/10 ${photo.span} ${photo.heightClass}`}
+              className={`relative rounded-3xl border border-gray-200/80 dark:border-white/10 ${photo.span} ${photo.heightClass}`}
             >
-              {/* Full-Fill Image */}
-              <img
-                src={photo.image}
-                alt={photo.title}
-                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              <GlowingEffect
+                spread={40}
+                glow={true}
+                disabled={false}
+                proximity={64}
+                inactiveZone={0.01}
+                borderWidth={2.5}
               />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ delay: idx * 0.08, duration: 0.5 }}
+                onClick={() => setActivePhoto(photo.image)}
+                className="group relative w-full h-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl bg-slate-900 cursor-pointer"
+              >
+                {/* Full-Fill Image */}
+                <img
+                  src={photo.image}
+                  alt={photo.title}
+                  className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                />
 
-              {/* Glassmorphic Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300 flex flex-col justify-end p-5 sm:p-6 text-white">
-                <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-mono uppercase tracking-wider text-cyan-300 bg-cyan-950/70 border border-cyan-500/30 backdrop-blur-md mb-2">
-                    {photo.category}
-                  </span>
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-base sm:text-lg font-bold text-white leading-tight">
-                      {photo.title}
-                    </h3>
-                    <div className="p-2 rounded-full bg-white/10 group-hover:bg-cyan-500/20 text-white group-hover:text-cyan-300 backdrop-blur-md transition-colors flex-shrink-0">
-                      <ZoomIn size={16} />
+                {/* Glassmorphic Overlay Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300 flex flex-col justify-end p-5 sm:p-6 text-white">
+                  <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-mono uppercase tracking-wider text-cyan-300 bg-cyan-950/70 border border-cyan-500/30 backdrop-blur-md mb-2">
+                      {photo.category}
+                    </span>
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="text-base sm:text-lg font-bold text-white leading-tight">
+                        {photo.title}
+                      </h3>
+                      <div className="p-2 rounded-full bg-white/10 group-hover:bg-cyan-500/20 text-white group-hover:text-cyan-300 backdrop-blur-md transition-colors flex-shrink-0">
+                        <ZoomIn size={16} />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, X, Image as ImageIcon, ArrowUpRight } from 'lucide-react';
+import { GlowingEffect } from './ui/glowing-effect';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -149,8 +150,16 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.4, delay: index * 0.08 }}
-              className="group relative flex flex-col justify-between rounded-2xl bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl border border-gray-200/80 dark:border-white/10 shadow-xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/40 dark:hover:border-cyan-500/40"
+              className="group relative flex flex-col justify-between rounded-2xl bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl border border-gray-200/80 dark:border-white/10 shadow-xl p-6 transition-all duration-300 hover:-translate-y-1"
             >
+              <GlowingEffect
+                spread={40}
+                glow={true}
+                disabled={false}
+                proximity={64}
+                inactiveZone={0.01}
+                borderWidth={2.5}
+              />
               <div>
                 {/* Header Tag */}
                 <div className="flex items-center justify-between mb-4">
