@@ -31,7 +31,7 @@ export default function Hero() {
   return (
     <section id="home" className="min-h-screen flex flex-col justify-between pt-28 pb-8 bg-transparent text-gray-900 dark:text-white transition-colors duration-300 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow flex flex-col md:flex-row items-center justify-between gap-12">
-        
+
         {/* Left: Text & Actions */}
         <div className="flex-1 text-center md:text-left z-10">
           <motion.div
@@ -91,7 +91,7 @@ export default function Hero() {
             </div>
           </motion.div>
         </div>
-        
+
         {/* Right: Clean Portrait */}
         <div className="flex-1 relative flex justify-center">
           <div ref={floatRef}>
