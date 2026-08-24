@@ -94,7 +94,7 @@ export default function Navbar() {
                 {item.name}
               </a>
             ))}
-            <a href="/public/Sushil_CV_2026.pdf" download className="block w-full text-left text-blue-600 dark:text-blue-400 px-3 py-2 font-medium">
+            <a href="/Sushil_CV_2026.pdf" download className="block w-full text-left text-blue-600 dark:text-blue-400 px-3 py-2 font-medium">
               Download Resume
             </a>
           </div>

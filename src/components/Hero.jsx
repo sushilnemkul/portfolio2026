@@ -61,7 +61,7 @@ export default function Hero() {
                 View Projects <ArrowRight className="ml-2" size={20} />
               </motion.a>
               <motion.a
-                href="/public/Sushil_CV_2026.pdf"
+                href="/Sushil_CV_2026.pdf"
                 download
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
