@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import {
   Github,
   ExternalLink,
@@ -163,15 +163,15 @@ export default function Projects() {
 
   const activeProject = filteredProjects[currentIndex % (filteredProjects.length || 1)] || filteredProjects[0] || projects[0];
 
-  const nextProject = useCallback(() => {
+  const nextProject = () => {
     setCurrentIndex((prev) => (prev + 1) % filteredProjects.length);
     setProgress(0);
-  }, [filteredProjects.length]);
+  };
 
-  const prevProject = useCallback(() => {
+  const prevProject = () => {
     setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
     setProgress(0);
-  }, [filteredProjects.length]);
+  };
 
   const selectProjectIndex = (index) => {
     setCurrentIndex(index);
@@ -188,7 +188,7 @@ export default function Projects() {
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
-          nextProject();
+          setCurrentIndex((curr) => (curr + 1) % filteredProjects.length);
           return 0;
         }
         return prev + step;
@@ -196,7 +196,7 @@ export default function Projects() {
     }, intervalTime);
 
     return () => clearInterval(timer);
-  }, [isPaused, filteredProjects.length, nextProject]);
+  }, [isPaused, filteredProjects.length]);
 
   const handleCategoryChange = (cat) => {
     setActiveCategory(cat);
@@ -269,7 +269,7 @@ export default function Projects() {
             {/* Backdrop Image with Crossfade */}
             <div className="absolute inset-0 z-0 overflow-hidden bg-slate-950">
               <AnimatePresence mode="wait">
-                <motion.div
+                <Motion.div
                   key={activeProject.id}
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -280,9 +280,11 @@ export default function Projects() {
                   <img
                     src={activeProject.image}
                     alt={activeProject.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-center filter brightness-[0.75] contrast-[1.05]"
                   />
-                </motion.div>
+                </Motion.div>
               </AnimatePresence>
 
               {/* Glassmorphic Gradient Overlays */}
@@ -295,7 +297,7 @@ export default function Projects() {
             {/* Foreground Billboard Content */}
             <div className="relative z-10 p-6 sm:p-10 md:p-12 lg:p-14 flex flex-col justify-end max-w-3xl">
               <AnimatePresence mode="wait">
-                <motion.div
+                <Motion.div
                   key={activeProject.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -362,7 +364,7 @@ export default function Projects() {
                       </a>
                     )}
                   </div>
-                </motion.div>
+                </Motion.div>
               </AnimatePresence>
             </div>
 
@@ -370,7 +372,7 @@ export default function Projects() {
             <div className="relative z-20 px-6 sm:px-10 pb-6 pt-3 flex items-center justify-between gap-4 bg-slate-950/40 backdrop-blur-md border-t border-white/10">
               {/* Left: Auto-Play Progress Bar */}
               <div className="w-24 sm:w-36 md:w-48 h-1.5 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
-                <motion.div
+                <Motion.div
                   className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.8)]"
                   style={{ width: `${progress}%` }}
                   transition={{ ease: 'linear' }}
@@ -463,6 +465,8 @@ export default function Projects() {
                       <img
                         src={project.image}
                         alt={project.title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -519,14 +523,17 @@ export default function Projects() {
       {/* PROJECT DETAILS MODAL WITH GLASSMORPHISM */}
       <AnimatePresence>
         {selectedProject && activeImageIndex === null && (
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Project details: ${selectedProject.title}`}
             className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-xl"
             onClick={() => setSelectedProject(null)}
           >
-            <motion.div
+            <Motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -607,6 +614,8 @@ export default function Projects() {
                         <img
                           src={img}
                           alt={`${selectedProject.title} screenshot ${idx + 1}`}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center backdrop-blur-xs">
@@ -649,18 +658,21 @@ export default function Projects() {
                   </button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </Motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
 
       {/* FULL SCREEN GALLERY LIGHTBOX MODAL WITH GLASSMORPHISM */}
       <AnimatePresence>
         {activeImageIndex !== null && selectedProject?.gallery && (
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Image gallery preview: ${selectedProject.title}`}
             className="fixed inset-0 z-[100] flex flex-col items-center justify-between p-3 sm:p-6 bg-black/95 backdrop-blur-2xl select-none"
             onClick={() => setActiveImageIndex(null)}
           >
@@ -711,7 +723,7 @@ export default function Projects() {
 
               {/* Active Image */}
               <AnimatePresence mode="wait">
-                <motion.div
+                <Motion.div
                   key={activeImageIndex}
                   initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -724,7 +736,7 @@ export default function Projects() {
                     alt={`${selectedProject.title} full view`}
                     className="max-w-full max-h-[75vh] sm:max-h-[80vh] object-contain rounded-2xl shadow-2xl border border-white/10"
                   />
-                </motion.div>
+                </Motion.div>
               </AnimatePresence>
 
               {/* Next Image Arrow */}
@@ -773,7 +785,7 @@ export default function Projects() {
                 Press <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 font-mono">Esc</kbd> or click outside to close • Use <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 font-mono">←</kbd> <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 font-mono">→</kbd> keys to navigate
               </span>
             </div>
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </section>

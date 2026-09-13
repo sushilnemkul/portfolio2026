@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Camera, X, ZoomIn, Sparkles } from 'lucide-react';
 import { GlowingEffect } from './ui/glowing-effect';
 import gsap from 'gsap';
@@ -114,18 +114,29 @@ export default function Photography() {
                 inactiveZone={0.01}
                 borderWidth={2.5}
               />
-              <motion.div
+              <Motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ delay: idx * 0.08, duration: 0.5 }}
                 onClick={() => setActivePhoto(photo.image)}
-                className="group relative w-full h-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl bg-slate-900 cursor-pointer"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setActivePhoto(photo.image);
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`View high-resolution photograph: ${photo.title}`}
+                className="group relative w-full h-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl bg-slate-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 {/* Full-Fill Image */}
                 <img
                   src={photo.image}
                   alt={photo.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                 />
 
@@ -140,12 +151,12 @@ export default function Photography() {
                         {photo.title}
                       </h3>
                       <div className="p-2 rounded-full bg-white/10 group-hover:bg-cyan-500/20 text-white group-hover:text-cyan-300 backdrop-blur-md transition-colors flex-shrink-0">
-                        <ZoomIn size={16} />
+                        <ZoomIn size={16} aria-hidden="true" />
                       </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </Motion.div>
             </div>
           ))}
         </div>
@@ -154,30 +165,35 @@ export default function Photography() {
       {/* Lightbox Zoom Modal */}
       <AnimatePresence>
         {activePhoto && (
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Photo Lightbox"
             className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-md cursor-zoom-out"
             onClick={() => setActivePhoto(null)}
           >
             <button
+              type="button"
               onClick={() => setActivePhoto(null)}
-              className="absolute top-6 right-6 p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-50 cursor-pointer"
+              aria-label="Close photo preview"
+              className="absolute top-6 right-6 p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
             >
-              <X size={24} />
+              <X size={24} aria-hidden="true" />
             </button>
-            <motion.img
+            <Motion.img
               initial={{ scale: 0.92, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.92, opacity: 0 }}
               transition={{ duration: 0.25 }}
               src={activePhoto}
-              alt="Expanded photo view"
+              alt="Expanded high-resolution photograph view"
               className="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border border-white/10"
               onClick={(e) => e.stopPropagation()}
             />
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </section>

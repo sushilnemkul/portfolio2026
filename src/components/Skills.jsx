@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { GlowingEffectDemo } from './ui/demo';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -34,7 +34,7 @@ export default function Skills() {
   ];
 
   const SkillCard = ({ skill, index }) => (
-    <motion.div
+    <Motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
@@ -42,7 +42,7 @@ export default function Skills() {
       className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-lg dark:hover:shadow-blue-900/20 hover:-translate-y-1 transition-all duration-300"
     >
       <p className="font-semibold text-gray-800 dark:text-gray-200 text-center">{skill}</p>
-    </motion.div>
+    </Motion.div>
   );
 
   return (

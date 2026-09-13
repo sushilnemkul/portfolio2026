@@ -4,11 +4,11 @@ import { Timeline } from "./timeline";
 export function TimelineDemo() {
     const data = [
         {
-            title: "2026 (Present)",
+            title: "2026",
             content: (
                 <div>
                     <p className="text-slate-800 dark:text-slate-200 text-xs md:text-sm font-normal mb-8 leading-relaxed">
-                        Broadening my IT expertise beyond software by working as a <strong>Networking Intern</strong> at the <strong>Nepal Electricity Authority (NEA)</strong>. Gaining hands-on experience in enterprise-scale network infrastructure, system administration, and large-scale troubleshooting.
+                        Broadened my IT expertise beyond software by completing a <strong>Networking Internship</strong> at the <strong>Nepal Electricity Authority (NEA)</strong> (concluded Bhadra 12, 2083 / August 2026). Gained hands-on experience in enterprise-scale network infrastructure, system administration, and large-scale troubleshooting.
                     </p>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="rounded-lg h-36 md:h-44 lg:h-52 overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm group">

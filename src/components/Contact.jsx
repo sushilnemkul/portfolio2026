@@ -83,24 +83,44 @@ export default function Contact() {
             </p>
             
             <div className="space-y-4">
-              <a href="mailto:namecoolsusil@gmail.com" className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                <Mail className="mr-4" size={24} />
+              <a
+                href="mailto:namecoolsusil@gmail.com"
+                aria-label="Send an email to Sushil Nemkul"
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                <Mail className="mr-4" size={24} aria-hidden="true" />
                 namecoolsusil@gmail.com
               </a>
-              <a href="tel:+9779843432401" className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                <Phone className="mr-4" size={24} />
+              <a
+                href="tel:+9779843432401"
+                aria-label="Call Sushil Nemkul at 9843432401"
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                <Phone className="mr-4" size={24} aria-hidden="true" />
                 9843432401
               </a>
               <div className="flex items-center text-gray-700 dark:text-gray-300">
-                <MapPin className="mr-4" size={24} />
-                Siddhipur, Lalitpur
+                <MapPin className="mr-4" size={24} aria-hidden="true" />
+                Siddhipur, Lalitpur, Nepal
               </div>
-              <a href="https://github.com/sushilnemkul" target="_blank" rel="noopener noreferrer" className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                <Github className="mr-4" size={24} />
+              <a
+                href="https://github.com/sushilnemkul"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Sushil Nemkul's GitHub profile"
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                <Github className="mr-4" size={24} aria-hidden="true" />
                 github.com/sushilnemkul
               </a>
-              <a href="https://www.linkedin.com/in/sushil-nemkul-7868b2261/" target="_blank" rel="noopener noreferrer" className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                <Linkedin className="mr-4" size={24} />
+              <a
+                href="https://www.linkedin.com/in/sushil-nemkul-7868b2261/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Sushil Nemkul's LinkedIn profile"
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                <Linkedin className="mr-4" size={24} aria-hidden="true" />
                 linkedin.com/in/sushil-nemkul
               </a>
             </div>
@@ -110,20 +130,26 @@ export default function Contact() {
             <div>
               <label htmlFor="user_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
               <input
+                id="user_name"
                 type="text"
-                name="user_name" // Required by EmailJS
+                name="user_name"
                 required
+                aria-required="true"
+                autoComplete="name"
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-colors"
                 placeholder="Your Name"
               />
             </div>
             
-             <div>
+            <div>
               <label htmlFor="user_email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
               <input
+                id="user_email"
                 type="email"
-                name="user_email" // Required by EmailJS
+                name="user_email"
                 required
+                aria-required="true"
+                autoComplete="email"
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-colors"
                 placeholder="your@email.com"
               />
@@ -132,26 +158,36 @@ export default function Contact() {
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
               <textarea
-                name="message" // Required by EmailJS
+                id="message"
+                name="message"
                 rows={4}
                 required
+                aria-required="true"
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-colors"
                 placeholder="Your message..."
               />
             </div>
 
             {status && (
-                <p className={`text-sm ${status.includes('success') ? 'text-green-600 dark:text-green-400' : 'text-blue-600 dark:text-blue-400'}`}>
-                    {status}
-                </p>
+              <div
+                role="status"
+                aria-live="polite"
+                className={`p-3 rounded-lg text-sm font-medium ${
+                  status.includes('successfully')
+                    ? 'bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800'
+                    : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800'
+                }`}
+              >
+                {status}
+              </div>
             )}
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-blue-600/20"
             >
-              {isSubmitting ? 'Sending...' : 'Send Message'} <Send size={20} className="ml-2" />
+              {isSubmitting ? 'Sending...' : 'Send Message'} <Send size={20} className="ml-2" aria-hidden="true" />
             </button>
           </form>
         </div>

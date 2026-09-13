@@ -98,7 +98,11 @@ export default function About() {
                   <div className="w-full h-80 sm:h-96 overflow-hidden">
                     <img
                       src="s2.jpg"
-                      alt="Sushil Nemkul"
+                      alt="Sushil Nemkul, BCA Student at DAV College"
+                      width="400"
+                      height="480"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-center transition-transform duration-500 ease-out hover:scale-105"
                     />
                   </div>

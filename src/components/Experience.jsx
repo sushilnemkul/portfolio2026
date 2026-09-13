@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { Briefcase, Calendar } from 'lucide-react';
 import { TimelineDemo } from './ui/timeline-demo';
 import gsap from 'gsap';
@@ -32,8 +32,8 @@ export default function Experience() {
       id: 1,
       role: 'Networking Intern',
       company: 'Nepal Electricity Authority (NEA)',
-      date: '2026 - Present',
-      description: 'Gaining hands-on experience in enterprise computer networking, infrastructure maintenance, and system troubleshooting.'
+      date: '2026',
+      description: 'Gained hands-on experience in enterprise computer networking, infrastructure maintenance, and system troubleshooting (Completed Bhadra 12, 2083 / August 2026).'
     },
     {
       id: 2,
@@ -66,7 +66,7 @@ export default function Experience() {
         
         <div className="space-y-12">
           {experiences.map((exp, index) => (
-            <motion.div
+            <Motion.div
               key={exp.id}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -90,7 +90,7 @@ export default function Experience() {
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 {exp.description}
               </p>
-            </motion.div>
+            </Motion.div>
           ))}
         </div>
       </div>
