@@ -75,10 +75,10 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/60 mb-6">
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" aria-hidden="true" />
-              Available for Internships & Projects
-            </div> */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-50/80 dark:bg-slate-800/80 text-blue-600 dark:text-cyan-400 border border-blue-200/60 dark:border-cyan-500/30 mb-6 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+              <span>Available for Projects & Internships</span>
+            </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
               Hi, I'm <span className="text-blue-600 dark:text-blue-400">Sushil Nemkul</span>
@@ -150,7 +150,7 @@ export default function Hero() {
               <div className="w-full h-full rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 p-1.5 shadow-2xl">
                 <div className="w-full h-full rounded-full bg-gray-200 dark:bg-slate-700 overflow-hidden flex items-center justify-center">
                   <img
-                    src="DSC_9687-Enhanced-NR.jpg.jpeg"
+                    src="/DSC_9687-Enhanced-NR.jpg.jpeg"
                     alt="Portrait of Sushil Nemkul, BCA Student and Aspiring Software Developer"
                     width="384"
                     height="384"

@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Download, Mail, Phone, Github, Linkedin, ArrowRight } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const NAV_ITEMS = [
   { name: 'Home', href: '#home' },
@@ -33,6 +32,23 @@ export default function Navbar() {
     });
   }, []);
 
+  // Lock body scroll and handle Escape key when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') setIsOpen(false);
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = 'unset';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
   // Scrollspy: update active section based on scroll position
   useEffect(() => {
     const handleScroll = () => {
@@ -52,99 +68,216 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLogoClick = (e) => {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setActiveSection('home');
+    }
+    setIsOpen(false);
+  };
+
+  const handleNavClick = (e, href) => {
+    setIsOpen(false);
+    if (href.startsWith('#')) {
+      const targetId = href.slice(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+        setActiveSection(targetId);
+      }
+    }
+  };
+
   return (
-    <nav aria-label="Main Navigation" className="fixed w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
-      <div ref={progressRef} className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-600 origin-left transform scale-x-0 z-50" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
-            <a href="#home" aria-label="Sushil Nemkul Homepage" className="flex items-center gap-2 group">
-              <div className="p-1.5 rounded-xl bg-slate-900/5 dark:bg-white/10 border border-slate-900/10 dark:border-white/10 backdrop-blur-sm transition-transform duration-300 group-hover:scale-105 shadow-sm">
-                <img src="logo.png" alt="Sushil Nemkul Logo" width="32" height="32" className="w-8 h-8 object-contain dark:invert-0 invert transition-all duration-300" />
-              </div>
-              <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent hidden sm:inline-block">
+    <>
+      <nav
+        aria-label="Main Navigation"
+        className="fixed top-0 left-0 right-0 w-full bg-white/85 dark:bg-slate-900/85 backdrop-blur-md z-50 border-b border-gray-200/80 dark:border-gray-800/80 transition-colors duration-300"
+      >
+        <div
+          ref={progressRef}
+          className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-600 origin-left transform scale-x-0 z-50"
+        />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-20">
+            {/* Clickable Brand Logo */}
+            <div className="flex-shrink-0">
+              <a
+                href="/#home"
+                onClick={handleLogoClick}
+                aria-label="Sushil Nemkul Homepage - Back to Top"
+                className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-xl"
+              >
+                <div className="p-1.5 rounded-xl bg-slate-900/5 dark:bg-white/10 border border-slate-900/10 dark:border-white/10 backdrop-blur-sm transition-transform duration-300 group-hover:scale-105 shadow-sm">
+                  <img
+                    src="/logo.png"
+                    alt="Sushil Nemkul Logo"
+                    width="32"
+                    height="32"
+                    className="w-8 h-8 object-contain dark:invert-0 invert transition-all duration-300"
+                  />
+                </div>
+                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
+                  Sushil Nemkul
+                </span>
+              </a>
+            </div>
 
-              </span>
-            </a>
-          </div>
-
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-2">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.href.slice(1);
                 return (
                   <a
                     key={item.name}
                     href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
                     aria-current={isActive ? 'page' : undefined}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
-                        ? 'text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-slate-800/80 font-semibold shadow-xs'
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      isActive
+                        ? 'text-blue-600 dark:text-cyan-400 bg-blue-50/80 dark:bg-slate-800/80 font-semibold shadow-xs'
                         : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100/50 dark:hover:bg-slate-800/50'
-                      }`}
+                    }`}
                   >
                     {item.name}
                   </a>
                 );
               })}
+
               <a
                 href="/Sushil_CV_2026.pdf"
                 download="Sushil_Nemkul_CV.pdf"
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/20"
+                className="inline-flex items-center gap-1.5 ml-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/20 active:scale-95"
               >
-                Resume
+                <span>Resume</span>
+                <Download size={15} />
               </a>
+
+              <div className="pl-1">
+                <ThemeToggle />
+              </div>
+            </div>
+
+            {/* Mobile Menu Button & Theme Toggle */}
+            <div className="md:hidden flex items-center gap-2">
               <ThemeToggle />
+              <button
+                type="button"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu-drawer"
+                className="p-2.5 rounded-xl text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400 hover:bg-gray-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+              >
+                {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
+              </button>
             </div>
           </div>
-
-          <div className="md:hidden flex items-center gap-4">
-            <ThemeToggle />
-            <button
-              type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle navigation menu"
-              aria-expanded={isOpen}
-              aria-controls="mobile-menu"
-              className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
-            </button>
-          </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile Drawer Backdrop & Menu (Mobile Menu Implementation) */}
       {isOpen && (
-        <div id="mobile-menu" className="md:hidden bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-gray-800 shadow-xl animate-in fade-in duration-200">
-          <div className="px-3 pt-2 pb-4 space-y-1 sm:px-3">
-            {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.href.slice(1);
-              return (
+        <div className="fixed inset-0 z-40 md:hidden">
+          {/* Backdrop overlay */}
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            onClick={() => setIsOpen(false)}
+            aria-hidden="true"
+          />
+
+          {/* Drawer content */}
+          <div
+            id="mobile-menu-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation"
+            className="fixed top-16 left-0 right-0 max-h-[calc(100vh-4rem)] overflow-y-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 shadow-2xl transition-all"
+          >
+            <div className="px-4 pt-3 pb-6 space-y-2">
+              {/* Navigation Links */}
+              <div className="space-y-1">
+                {NAV_ITEMS.map((item) => {
+                  const isActive = activeSection === item.href.slice(1);
+                  return (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      onClick={(e) => handleNavClick(e, item.href)}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
+                        isActive
+                          ? 'text-blue-600 dark:text-cyan-400 bg-blue-50/80 dark:bg-slate-800/90 font-bold border-l-4 border-blue-600 dark:border-cyan-400'
+                          : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-slate-800/50'
+                      }`}
+                    >
+                      <span>{item.name}</span>
+                      <ArrowRight size={16} className={isActive ? 'opacity-100' : 'opacity-40'} />
+                    </a>
+                  );
+                })}
+              </div>
+
+              {/* Action Buttons in Mobile Menu */}
+              <div className="pt-4 border-t border-gray-200 dark:border-gray-800 space-y-3">
                 <a
-                  key={item.name}
-                  href={item.href}
-                  aria-current={isActive ? 'page' : undefined}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive
-                      ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-800 font-semibold'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                    }`}
+                  href="/Sushil_CV_2026.pdf"
+                  download="Sushil_Nemkul_CV.pdf"
                   onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full bg-blue-600 text-white px-4 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-md shadow-blue-600/20 active:scale-98"
                 >
-                  {item.name}
+                  <Download size={18} />
+                  <span>Download Resume (CV)</span>
                 </a>
-              );
-            })}
-            <a
-              href="/Sushil_CV_2026.pdf"
-              download="Sushil_Nemkul_CV.pdf"
-              className="block w-full text-center mt-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-sm"
-              onClick={() => setIsOpen(false)}
-            >
-              Download Resume
-            </a>
+
+                {/* Direct quick contact links */}
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <a
+                    href="tel:+9779843432401"
+                    aria-label="Call Sushil Nemkul"
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-gray-200 text-xs font-semibold hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors border border-gray-200/80 dark:border-slate-700/80"
+                  >
+                    <Phone size={14} className="text-blue-600 dark:text-cyan-400" />
+                    <span>Call Now</span>
+                  </a>
+                  <a
+                    href="mailto:namecoolsusil@gmail.com"
+                    aria-label="Send Email to Sushil Nemkul"
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-gray-200 text-xs font-semibold hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors border border-gray-200/80 dark:border-slate-700/80"
+                  >
+                    <Mail size={14} className="text-blue-600 dark:text-cyan-400" />
+                    <span>Email Me</span>
+                  </a>
+                </div>
+
+                {/* Social media quick icons */}
+                <div className="flex items-center justify-center gap-4 pt-2 text-gray-500 dark:text-gray-400">
+                  <a
+                    href="https://github.com/sushilnemkul"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Sushil Nemkul GitHub profile"
+                    className="p-2 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors"
+                  >
+                    <Github size={20} />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/sushil-nemkul-7868b2261/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Sushil Nemkul LinkedIn profile"
+                    className="p-2 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors"
+                  >
+                    <Linkedin size={20} />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
-    </nav>
+    </>
   );
 }

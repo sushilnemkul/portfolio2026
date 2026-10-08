@@ -234,6 +234,7 @@ export default function Projects() {
             const isActive = activeCategory === cat;
             return (
               <button
+                type="button"
                 key={cat}
                 onClick={() => handleCategoryChange(cat)}
                 className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium tracking-wide transition-all duration-300 cursor-pointer backdrop-blur-md ${
@@ -344,6 +345,7 @@ export default function Projects() {
                   <div className="flex flex-wrap items-center gap-3.5 pt-2 sm:pt-4">
                     {/* Primary CTA: "Show Details ->" */}
                     <button
+                      type="button"
                       onClick={() => setSelectedProject(activeProject)}
                       className="group inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-xl bg-[#00a2ed] hover:bg-[#008fcf] text-white font-bold text-sm sm:text-base shadow-lg shadow-sky-500/30 hover:shadow-sky-500/60 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer backdrop-blur-md border border-cyan-300/30"
                     >
@@ -385,6 +387,7 @@ export default function Projects() {
                   const isActive = (currentIndex % filteredProjects.length) === idx;
                   return (
                     <button
+                      type="button"
                       key={idx}
                       onClick={() => selectProjectIndex(idx)}
                       aria-label={`Go to slide ${idx + 1}`}
@@ -401,6 +404,7 @@ export default function Projects() {
               {/* Right: Circular Prev / Next Glass Buttons */}
               <div className="flex items-center gap-2">
                 <button
+                  type="button"
                   onClick={prevProject}
                   aria-label="Previous project"
                   className="p-2 sm:p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-cyan-400 backdrop-blur-xl transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer shadow-lg hover:shadow-cyan-500/30"
@@ -408,6 +412,7 @@ export default function Projects() {
                   <ChevronLeft size={18} />
                 </button>
                 <button
+                  type="button"
                   onClick={nextProject}
                   aria-label="Next project"
                   className="p-2 sm:p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-cyan-400 backdrop-blur-xl transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer shadow-lg hover:shadow-cyan-500/30"
@@ -502,6 +507,7 @@ export default function Projects() {
                           {project.tech[0]} • {project.tech[1]}
                         </span>
                         <button
+                          type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedProject(project);
@@ -543,6 +549,7 @@ export default function Projects() {
             >
               {/* Close Button */}
               <button
+                type="button"
                 onClick={() => setSelectedProject(null)}
                 aria-label="Close project modal"
                 className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2.5 rounded-full bg-white/80 dark:bg-slate-800/80 text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition-all z-10 cursor-pointer shadow-md border border-gray-200 dark:border-white/10"
@@ -651,6 +658,7 @@ export default function Projects() {
                     </a>
                   )}
                   <button
+                    type="button"
                     onClick={() => setSelectedProject(null)}
                     className="sm:w-32 inline-flex items-center justify-center px-5 py-3 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 font-medium text-sm hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
                   >
@@ -692,6 +700,7 @@ export default function Projects() {
 
               {/* Main Cross / Close Button */}
               <button
+                type="button"
                 onClick={() => setActiveImageIndex(null)}
                 aria-label="Close full view"
                 className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 hover:bg-red-600 text-white font-semibold text-xs sm:text-sm border border-white/20 backdrop-blur-xl transition-all duration-200 shadow-2xl cursor-pointer hover:scale-105 active:scale-95"
@@ -709,6 +718,7 @@ export default function Projects() {
               {/* Previous Image Arrow */}
               {selectedProject.gallery.length > 1 && (
                 <button
+                  type="button"
                   onClick={() =>
                     setActiveImageIndex((prev) =>
                       prev > 0 ? prev - 1 : selectedProject.gallery.length - 1
@@ -742,6 +752,7 @@ export default function Projects() {
               {/* Next Image Arrow */}
               {selectedProject.gallery.length > 1 && (
                 <button
+                  type="button"
                   onClick={() =>
                     setActiveImageIndex((prev) =>
                       prev < selectedProject.gallery.length - 1 ? prev + 1 : 0
@@ -764,6 +775,7 @@ export default function Projects() {
               <div className="flex items-center gap-2 overflow-x-auto max-w-full py-1.5 px-3 bg-black/40 backdrop-blur-xl rounded-2xl border border-white/10 no-scrollbar shadow-xl">
                 {selectedProject.gallery.map((thumb, idx) => (
                   <button
+                    type="button"
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
                     className={`w-14 sm:w-16 h-9 sm:h-10 rounded-lg overflow-hidden border-2 transition-all cursor-pointer flex-shrink-0 ${

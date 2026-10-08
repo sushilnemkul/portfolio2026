@@ -20,7 +20,7 @@ export function TimelineDemo() {
                         </div>
                         <div className="rounded-lg h-36 md:h-44 lg:h-52 overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm group">
                             <img 
-                                src="/2025_12_20_12_29_07_IMG_4327.jpg.jpeg" 
+                                src="/s2.jpg" 
                                 alt="NEA System Admin & Troubleshooting" 
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />

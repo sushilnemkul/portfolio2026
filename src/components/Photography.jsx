@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Camera, X, ZoomIn, Sparkles } from 'lucide-react';
 import { GlowingEffect } from './ui/glowing-effect';
@@ -11,6 +11,23 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 export default function Photography() {
   const [activePhoto, setActivePhoto] = useState(null);
   const headerLineRef = useRef(null);
+
+  // Prevent background scrolling and enable Escape key to close lightbox
+  useEffect(() => {
+    if (activePhoto) {
+      document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') setActivePhoto(null);
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = 'unset';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [activePhoto]);
 
   useGSAP(() => {
     gsap.fromTo(headerLineRef.current,

@@ -97,7 +97,7 @@ export default function About() {
                 <div className="relative overflow-hidden rounded-2xl bg-gray-200 dark:bg-slate-800 shadow-xl border border-gray-200/80 dark:border-slate-700/80">
                   <div className="w-full h-80 sm:h-96 overflow-hidden">
                     <img
-                      src="s2.jpg"
+                      src="/s2.jpg"
                       alt="Sushil Nemkul, BCA Student at DAV College"
                       width="400"
                       height="480"
