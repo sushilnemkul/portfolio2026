@@ -20,6 +20,7 @@ export default function Navbar() {
   const progressRef = useRef(null);
   const toggleButtonRef = useRef(null);
   const drawerRef = useRef(null);
+  const desktopNavRef = useRef(null);
   const wasOpenRef = useRef(false);
 
   useGSAP(() => {
@@ -76,7 +77,18 @@ export default function Navbar() {
         drawerRef.current.focus();
       }
     } else if (wasOpenRef.current) {
-      toggleButtonRef.current?.focus();
+      if (window.innerWidth >= 768) {
+        const desktopFocusable = desktopNavRef.current?.querySelector(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (desktopFocusable) {
+          desktopFocusable.focus();
+        } else {
+          desktopNavRef.current?.focus();
+        }
+      } else {
+        toggleButtonRef.current?.focus();
+      }
     }
     wasOpenRef.current = isOpen;
   }, [isOpen]);
@@ -141,7 +153,9 @@ export default function Navbar() {
     if (window.location.pathname === '/' || window.location.pathname === '') {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      window.history.pushState(null, '', '#home');
+      if (window.location.hash !== '#home') {
+        window.history.pushState(null, '', '#home');
+      }
       setActiveSection('home');
     }
     setIsOpen(false);
@@ -155,7 +169,9 @@ export default function Navbar() {
       if (targetEl) {
         e.preventDefault();
         targetEl.scrollIntoView({ behavior: 'smooth' });
-        window.history.pushState(null, '', href);
+        if (window.location.hash !== href) {
+          window.history.pushState(null, '', href);
+        }
         setActiveSection(targetId);
       }
     }
@@ -197,7 +213,7 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
+            <div ref={desktopNavRef} className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.href.slice(1);
                 return (

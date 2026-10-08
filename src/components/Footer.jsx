@@ -16,7 +16,9 @@ export default function Footer() {
   const scrollToTop = (e) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    window.history.pushState(null, '', '#home');
+    if (window.location.hash !== '#home') {
+      window.history.pushState(null, '', '#home');
+    }
   };
 
   const handleNavClick = (e, href) => {
@@ -26,7 +28,9 @@ export default function Footer() {
       if (targetEl) {
         e.preventDefault();
         targetEl.scrollIntoView({ behavior: 'smooth' });
-        window.history.pushState(null, '', href);
+        if (window.location.hash !== href) {
+          window.history.pushState(null, '', href);
+        }
       }
     }
   };
