@@ -22,7 +22,10 @@ function SpaRedirectHandler() {
 
   useEffect(() => {
     if (location.search.startsWith('?/')) {
-      const redirectPath = location.search.slice(1).replace(/~and~/g, '&');
+      const [rawPath, ...rawQueryParts] = location.search.slice(1).split('&');
+      const path = rawPath.replace(/~and~/g, '&');
+      const query = rawQueryParts.length > 0 ? '?' + rawQueryParts.join('&').replace(/~and~/g, '&') : '';
+      const redirectPath = path + query + (location.hash || '');
       navigate(redirectPath, { replace: true });
     }
   }, [location, navigate]);

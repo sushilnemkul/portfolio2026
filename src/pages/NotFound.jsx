@@ -12,7 +12,11 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16 text-center relative overflow-hidden bg-white dark:bg-slate-900 transition-colors">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="min-h-screen flex flex-col items-center justify-center px-4 py-16 text-center relative overflow-hidden bg-white dark:bg-slate-900 transition-colors outline-none"
+    >
       {/* Background Ambient Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/15 dark:bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
 
@@ -69,6 +73,6 @@ export default function NotFound() {
           </a>
         </div>
       </Motion.div>
-    </div>
+    </main>
   );
 }

@@ -37,6 +37,7 @@ export default function Contact() {
     if (formErrors[name]) {
       setFormErrors((prev) => ({ ...prev, [name]: '' }));
     }
+    setFeedback((prev) => (prev.type === 'loading' ? prev : { type: null, message: '', details: '' }));
   };
 
   const validate = () => {
@@ -259,6 +260,7 @@ export default function Contact() {
                 required
                 aria-required="true"
                 aria-invalid={!!formErrors.user_name}
+                aria-describedby={formErrors.user_name ? 'user_name-error' : undefined}
                 autoComplete="name"
                 className={`w-full px-4 py-3 rounded-xl border bg-gray-50/50 dark:bg-slate-700/60 text-gray-900 dark:text-white outline-none transition-all ${
                   formErrors.user_name
@@ -268,7 +270,7 @@ export default function Contact() {
                 placeholder="e.g. John Doe"
               />
               {formErrors.user_name && (
-                <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                <p id="user_name-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
                   <AlertCircle size={12} /> {formErrors.user_name}
                 </p>
               )}
@@ -288,6 +290,7 @@ export default function Contact() {
                 required
                 aria-required="true"
                 aria-invalid={!!formErrors.user_email}
+                aria-describedby={formErrors.user_email ? 'user_email-error' : undefined}
                 autoComplete="email"
                 className={`w-full px-4 py-3 rounded-xl border bg-gray-50/50 dark:bg-slate-700/60 text-gray-900 dark:text-white outline-none transition-all ${
                   formErrors.user_email
@@ -297,7 +300,7 @@ export default function Contact() {
                 placeholder="you@example.com"
               />
               {formErrors.user_email && (
-                <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                <p id="user_email-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
                   <AlertCircle size={12} /> {formErrors.user_email}
                 </p>
               )}
@@ -317,6 +320,7 @@ export default function Contact() {
                 required
                 aria-required="true"
                 aria-invalid={!!formErrors.message}
+                aria-describedby={formErrors.message ? 'message-error' : undefined}
                 className={`w-full px-4 py-3 rounded-xl border bg-gray-50/50 dark:bg-slate-700/60 text-gray-900 dark:text-white outline-none transition-all ${
                   formErrors.message
                     ? 'border-red-500 focus:ring-2 focus:ring-red-400'
@@ -325,7 +329,7 @@ export default function Contact() {
                 placeholder="Tell me about your project, idea, or opportunity..."
               />
               {formErrors.message && (
-                <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                <p id="message-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
                   <AlertCircle size={12} /> {formErrors.message}
                 </p>
               )}

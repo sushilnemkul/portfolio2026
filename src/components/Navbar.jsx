@@ -18,6 +18,9 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const progressRef = useRef(null);
+  const toggleButtonRef = useRef(null);
+  const drawerRef = useRef(null);
+  const wasOpenRef = useRef(false);
 
   useGSAP(() => {
     gsap.to(progressRef.current, {
@@ -32,21 +35,87 @@ export default function Navbar() {
     });
   }, []);
 
-  // Lock body scroll and handle Escape key when mobile menu is open
+  // Lock body scroll for mobile menu; release scroll lock and close drawer when widening past md (768px)
   useEffect(() => {
-    if (isOpen) {
+    if (!isOpen) {
+      document.body.style.overflow = 'unset';
+      return;
+    }
+
+    if (window.innerWidth < 768) {
       document.body.style.overflow = 'hidden';
-      const handleKeyDown = (e) => {
-        if (e.key === 'Escape') setIsOpen(false);
-      };
-      window.addEventListener('keydown', handleKeyDown);
-      return () => {
-        document.body.style.overflow = 'unset';
-        window.removeEventListener('keydown', handleKeyDown);
-      };
     } else {
       document.body.style.overflow = 'unset';
     }
+
+    const checkBreakpoint = () => {
+      if (window.innerWidth >= 768) {
+        document.body.style.overflow = 'unset';
+        setIsOpen(false);
+      } else {
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    window.addEventListener('resize', checkBreakpoint);
+    return () => {
+      document.body.style.overflow = 'unset';
+      window.removeEventListener('resize', checkBreakpoint);
+    };
+  }, [isOpen]);
+
+  // Focus management: move focus inside drawer on open, restore to toggle button on close
+  useEffect(() => {
+    if (isOpen) {
+      const focusable = drawerRef.current?.querySelectorAll(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable && focusable.length > 0) {
+        focusable[0].focus();
+      } else if (drawerRef.current) {
+        drawerRef.current.focus();
+      }
+    } else if (wasOpenRef.current) {
+      toggleButtonRef.current?.focus();
+    }
+    wasOpenRef.current = isOpen;
+  }, [isOpen]);
+
+  // Focus trap & Escape handling for mobile drawer
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && drawerRef.current) {
+        const focusable = drawerRef.current.querySelectorAll(
+          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable || focusable.length === 0) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first || !drawerRef.current.contains(document.activeElement)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last || !drawerRef.current.contains(document.activeElement)) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
   // Scrollspy: update active section based on scroll position
@@ -72,6 +141,7 @@ export default function Navbar() {
     if (window.location.pathname === '/' || window.location.pathname === '') {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.pushState(null, '', '#home');
       setActiveSection('home');
     }
     setIsOpen(false);
@@ -85,6 +155,7 @@ export default function Navbar() {
       if (targetEl) {
         e.preventDefault();
         targetEl.scrollIntoView({ behavior: 'smooth' });
+        window.history.pushState(null, '', href);
         setActiveSection(targetId);
       }
     }
@@ -164,6 +235,7 @@ export default function Navbar() {
             <div className="md:hidden flex items-center gap-2">
               <ThemeToggle />
               <button
+                ref={toggleButtonRef}
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
@@ -190,11 +262,13 @@ export default function Navbar() {
 
           {/* Drawer content */}
           <div
+            ref={drawerRef}
+            tabIndex={-1}
             id="mobile-menu-drawer"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile Navigation"
-            className="fixed top-16 left-0 right-0 max-h-[calc(100vh-4rem)] overflow-y-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 shadow-2xl transition-all"
+            className="fixed top-16 left-0 right-0 max-h-[calc(100vh-4rem)] overflow-y-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 shadow-2xl transition-all outline-none"
           >
             <div className="px-4 pt-3 pb-6 space-y-2">
               {/* Navigation Links */}
