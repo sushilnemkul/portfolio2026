@@ -206,9 +206,9 @@ export default function Navbar() {
                     className="w-8 h-8 object-contain dark:invert-0 invert transition-all duration-300"
                   />
                 </div>
-                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
+                {/* <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
                   Sushil Nemkul
-                </span>
+                </span> */}
               </a>
             </div>
 
@@ -222,11 +222,10 @@ export default function Navbar() {
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
                     aria-current={isActive ? 'page' : undefined}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                      isActive
-                        ? 'text-blue-600 dark:text-cyan-400 bg-blue-50/80 dark:bg-slate-800/80 font-semibold shadow-xs'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100/50 dark:hover:bg-slate-800/50'
-                    }`}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
+                      ? 'text-blue-600 dark:text-cyan-400 bg-blue-50/80 dark:bg-slate-800/80 font-semibold shadow-xs'
+                      : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100/50 dark:hover:bg-slate-800/50'
+                      }`}
                   >
                     {item.name}
                   </a>
@@ -297,11 +296,10 @@ export default function Navbar() {
                       href={item.href}
                       onClick={(e) => handleNavClick(e, item.href)}
                       aria-current={isActive ? 'page' : undefined}
-                      className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
-                        isActive
-                          ? 'text-blue-600 dark:text-cyan-400 bg-blue-50/80 dark:bg-slate-800/90 font-bold border-l-4 border-blue-600 dark:border-cyan-400'
-                          : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-slate-800/50'
-                      }`}
+                      className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-colors ${isActive
+                        ? 'text-blue-600 dark:text-cyan-400 bg-blue-50/80 dark:bg-slate-800/90 font-bold border-l-4 border-blue-600 dark:border-cyan-400'
+                        : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-cyan-400 hover:bg-gray-50 dark:hover:bg-slate-800/50'
+                        }`}
                     >
                       <span>{item.name}</span>
                       <ArrowRight size={16} className={isActive ? 'opacity-100' : 'opacity-40'} />

@@ -75,10 +75,10 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-50/80 dark:bg-slate-800/80 text-blue-600 dark:text-cyan-400 border border-blue-200/60 dark:border-cyan-500/30 mb-6 shadow-sm">
+            {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-50/80 dark:bg-slate-800/80 text-blue-600 dark:text-cyan-400 border border-blue-200/60 dark:border-cyan-500/30 mb-6 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
               <span>Available for Projects & Internships</span>
-            </div>
+            </div> */}
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
               Hi, I'm <span className="text-blue-600 dark:text-blue-400">Sushil Nemkul</span>
